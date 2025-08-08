@@ -1,7 +1,6 @@
 
 # --------------------------------
 import os, csv, inspect
-from logging import exception
 from docx2pdf import convert
 from tkinter import Tk, BooleanVar
 from tkinter import ttk, filedialog
