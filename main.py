@@ -44,8 +44,8 @@ def perform_conversion(input_directory_path, output_directory_path = None):
         output_directory_path = input_directory_path
         
 def close_app():
-    logger.log_action("Close application")
     root.destroy()
+    logger.log_action("Close application")
 
 def open_file_explorer():
     logger.log_action("Opening file explorer")
