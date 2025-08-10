@@ -1,28 +1,22 @@
 
 # --------------------------------
-import os, csv, inspect
+import os, csv
 from docx2pdf import convert
 from tkinter import Tk, BooleanVar
 from tkinter import ttk, filedialog
 from datetime import datetime
+import Logg
 
 # Functions
 
 # LOGGER
-def log_action(action_text = None):
-    log_file_path = os.path.join(directory_path, "log.txt")
-    log_text = f'{datetime.now()} | caller: {inspect.stack()[1].function} - {action_text}\n'
-
-    log = open(log_file_path, "a")
-    log.write(log_text)
-    log.close()
-    print(log_text)
-    # LOGGER
+logger = Logg.Logger()
+# LOGGER
 
 def unpack_list(data):
     return_data = []
     for i in data:
-        log_action("Retrieve data from file")
+        logger.log_action("Retrieve data from file")
         return_data.append(i[0])
     return return_data
 
@@ -30,7 +24,7 @@ def write_list_to_file(last_used_path):
     if os.path.exists(last_used_path):
         drop_list.append(last_used_path)
         with open(save_file_path, "w", newline="") as standard_save_file:
-            writer = csv.writer(standard_save_file)    
+            csv.writer(standard_save_file)
 
 def read_list_from_file():
     data = []
@@ -45,20 +39,20 @@ def read_list_from_file():
         file.close()
     return data
 
-def perfrom_conversion(input_directory_path, output_directory_path = None):
+def perform_conversion(input_directory_path, output_directory_path = None):
     if not output_directory_path:
         output_directory_path = input_directory_path
         
 def close_app():
-    log_action("Close application")
+    logger.log_action("Close application")
     root.destroy()
 
 def open_file_explorer():
-    log_action("Opening file explorer")
+    logger.log_action("Opening file explorer")
     files_directory = filedialog.askdirectory(
         title="Select an input directory"
     )
-    log_action("File explorer shut down")
+    logger.log_action("File explorer shut down")
     if not files_directory:
         return None
     return files_directory
@@ -80,6 +74,8 @@ is_same_directory = BooleanVar(value=False)
 drop_list = list(read_list_from_file())
 
 # Widgets initialization
+
+print(datetime.microsecond)
 
 dropdown_list.pack()
 btn_search_directory.pack()
