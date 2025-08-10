@@ -1,3 +1,0 @@
-2025-08-10 22:17:49.741292 | caller: open_file_explorer - Opening file explorer
-2025-08-10 22:17:52.907008 | caller: open_file_explorer - File explorer shut down
-2025-08-10 22:17:54.986667 | caller: close_app - Close application

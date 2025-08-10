@@ -42,9 +42,21 @@ def read_list_from_file():
     return data
 
 def perform_conversion(input_directory_path, output_directory_path = None):
-    if not output_directory_path:
+    logger.log_action("Entering conversion function")
+    if output_directory_path is None:
+        logger.log_action("Set Output directory as input directory")
         output_directory_path = input_directory_path
-        
+    try:
+        logger.log_action("Find all files in specified directory")
+        files = []
+        with os.scandir(input_directory_path) as entries:
+            for entry in entries:
+                if entry.is_file() and entry.name.endswith((".doc", ".docx")):
+                    files.append(entry.name)
+    except FileNotFoundError:
+        logger.log_action("No directroy was found under specified path")
+
+
 def close_app():
     root.destroy()
     logger.log_action("Close application")
@@ -77,8 +89,6 @@ drop_list = list(read_list_from_file())
 
 # Widgets initialization
 
-print(datetime.microsecond)
-
 dropdown_list.pack()
 btn_search_directory.pack()
 check_box.pack()
@@ -104,6 +114,6 @@ btn_search_directory.config(
 
 root.protocol("WM_DELETE_WINDOW", close_app)
 print(f"Path to - {directory_path}")
-print(is_same_directory)
+print(f'is_same_directory - {is_same_directory}')
 
 root.mainloop()
