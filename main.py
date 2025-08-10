@@ -11,6 +11,8 @@ import Logg
 
 # LOGGER
 logger = Logg.Logger()
+logger.log_action("Logger created")
+logger.log_action("Application startup")
 # LOGGER
 
 def unpack_list(data):
