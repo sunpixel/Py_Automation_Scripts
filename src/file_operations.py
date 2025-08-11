@@ -42,6 +42,19 @@ def read_list_from_file():
     return data
 
 
+def get_all_directory_files(input_directory):
+    try:
+        logger.log_action("Try to scandir directory files")
+        with os.scandir(input_directory) as files:
+            print(files)
+            print(list(files))
+            print('-' * 40)
+        return files
+    except FileNotFoundError:
+        logger.log_action("No directory under the said path was found")
+        return None
+    
+
 def perform_conversion(input_directory_path, output_directory_path = None):
     logger.log_action("Entering conversion function")
     if output_directory_path is None:
