@@ -44,12 +44,16 @@ def read_list_from_file():
 
 def get_all_directory_files(input_directory):
     try:
+        out = []
         logger.log_action("Try to scandir directory files")
         with os.scandir(input_directory) as files:
             print(files)
             print(list(files))
             print('-' * 40)
-        return files
+            for entry in files:
+                if entry.is_file():
+                    out.append(entry.name)
+        return out
     except FileNotFoundError:
         logger.log_action("No directory under the said path was found")
         return None
