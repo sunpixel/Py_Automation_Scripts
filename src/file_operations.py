@@ -1,4 +1,4 @@
-from Logg import Logger
+from .Logg import Logger
 import os, csv
 logger = Logger()
 
@@ -43,20 +43,30 @@ def read_list_from_file():
 
 
 def get_all_directory_files(input_directory):
+    out = []
+
     try:
-        out = []
         logger.log_action("Try to scandir directory files")
-        with os.scandir(input_directory) as files:
-            print(files)
-            print(list(files))
-            print('-' * 40)
-            for entry in files:
-                if entry.is_file():
-                    out.append(entry.name)
-        return out
+
+        def scan_dir(search_path):
+            logger.log_action("Scanning directory")
+
+            data = []            
+            with os.scandir(search_path) as files:
+                for entry in files:
+                    if entry.is_file():
+                        data.append(entry.name)
+                    elif entry.is_dir():
+                        logger.log_action(f'Scanning {entry.name}')
+                        if entry.name not in {"__pycache__", ".pytest_cache", ".idea", ".vscode", ".git"}:
+                            scan_dir(entry.path)
+            out.append([os.path.basename(search_path), data])
+
+        scan_dir(input_directory)
+                
     except FileNotFoundError:
         logger.log_action("No directory under the said path was found")
-        return None
+    return out
     
 
 def perform_conversion(input_directory_path, output_directory_path = None):

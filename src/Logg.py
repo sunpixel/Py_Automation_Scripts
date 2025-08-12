@@ -4,7 +4,7 @@ import os, inspect
 class Logger:
     def __init__(self, output_dir=None):
         self.file_name = f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f')}.log.txt"
-        self.directory_path = os.getcwd()
+        self.directory_path = os.path.dirname(os.path.realpath(__file__))
         output_dir = os.path.join(os.path.dirname(self.directory_path), "logs")
         if not os.path.exists(output_dir):
             os.mkdir(output_dir)
