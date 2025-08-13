@@ -16,10 +16,12 @@ def read_config():
 
     debug_mode = config.getboolean('General', 'debug')
     log_level = config.get('General', "log_level")
+    hide_elements = config.getboolean("General", "hide_elements")
     
     config_data = {
         'debug_mode': debug_mode,
-        'log_level': log_level
+        'log_level': log_level,
+        'hide_elements': hide_elements
     }
     return config_data
 
