@@ -17,3 +17,6 @@ def test2():
     result = settings.read_config()
     print(f'Result: {result}')
     assert result is not {}
+
+def test3():
+    assert settings.write_config()

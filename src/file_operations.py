@@ -83,3 +83,7 @@ def perform_conversion(input_directory_path, output_directory_path = None):
                     files.append(entry.name)
     except FileNotFoundError:
         logger.log_action("No directroy was found under specified path")
+
+
+def delete_logs(limit = 10):
+    logger.log_action("Deleting extra logs")

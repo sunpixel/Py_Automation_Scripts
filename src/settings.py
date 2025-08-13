@@ -22,3 +22,14 @@ def read_config():
         'log_level': log_level
     }
     return config_data
+
+def write_config():
+    config = configparser.ConfigParser()
+
+    config['General'] = {'debug': True, 'log_level': 'All'} # pyright: ignore[reportArgumentType]
+    config['DataBase'] = {'db_name': 'example_db'}
+
+    with open(final_path, 'w') as configfile:
+        config.write(configfile)
+    
+    return True
