@@ -1,5 +1,5 @@
 import configparser, os
-from .Logg import Logger
+from Logg import Logger
 
 path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)
 final_path = os.path.join(path, "config.ini")

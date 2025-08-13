@@ -31,45 +31,82 @@ def open_file_explorer():
         return None
     return files_directory
 
+def toogle_elemets_visibility():
+    logger.log_action("Hiding/Unhidng elemnts")
+    x = is_same_directory.get()
+    for widget in [dropdown_output_list, btn_search_dir_out, text_field_out]:
+        widget.grid() if not x else widget.grid_remove()
 
 # Program
 
 root = Tk()  # Creating a root object
+text_field_in = ttk.Label(text="Select input directory")
+text_field_out = ttk.Label(text="Select output directory")
 check_box = ttk.Checkbutton()
-btn_search_directory = ttk.Button()
-dropdown_list = ttk.Combobox()
+btn_search_dir_in = ttk.Button()
+btn_search_dir_out = ttk.Button()
+dropdown_input_list = ttk.Combobox()
+dropdown_output_list = ttk.Combobox()
 
 # Variable creation
 
-is_same_directory = BooleanVar(value=False)
+is_same_directory = BooleanVar(value=True)
 drop_list = list(read_list_from_file())
 
 # Widgets initialization
 
-dropdown_list.pack()
-btn_search_directory.pack()
-check_box.pack()
+logger.log_action("Initialization of grid elements")
+
+text_field_in.grid(row=0)
+
+dropdown_input_list.grid(row=1, column=0, padx=5, pady=5, sticky='ew')
+btn_search_dir_in.grid(row=1, column=1, padx=5, pady=5, sticky='w')
+
+check_box.grid(row=2)
+
+text_field_out.grid(row=3)
+
+dropdown_output_list.grid(row=4, column=0, padx=5, pady=5, sticky='ew')
+btn_search_dir_out.grid(row=4, column=1, padx=5, pady=5, sticky='w')
+
+
+root.grid_columnconfigure(0, weight=1)
+root.grid_columnconfigure(1, weight=0)
+
+logger.log_action("Initial hiding of elemnts")
+toogle_elemets_visibility() # Essential for hiding elements
 
 root.title("PDF auto converter")
 root.geometry("300x300")
 root.minsize(width=300, height=300)
 
 
-dropdown_list.config(
+dropdown_input_list.config(
     values=drop_list
 )
+# Values are to be redone
+dropdown_output_list.config(
+    values=drop_list
+)
+
 check_box.config(
     text="Put PDF into the same directory?",
     variable=is_same_directory,
     onvalue=True,
-    offvalue=False
+    offvalue=False,
+    command=toogle_elemets_visibility
 )
-btn_search_directory.config(
+
+btn_search_dir_in.config(
+    text="...",
+    command=open_file_explorer
+)
+
+btn_search_dir_out.config(
     text="...",
     command=open_file_explorer
 )
 
 root.protocol("WM_DELETE_WINDOW", close_app)
-print(f'is_same_directory - {is_same_directory}')
 
 root.mainloop()

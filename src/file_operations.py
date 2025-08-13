@@ -1,4 +1,4 @@
-from .Logg import Logger
+from Logg import Logger
 import os, csv
 logger = Logger()
 
