@@ -84,6 +84,7 @@ def perform_conversion(input_directory_path, output_directory_path = None):
     except FileNotFoundError:
         logger.log_action("No directroy was found under specified path")
 
+# TODO: make a call upon this function upon reaching a limit of amount of logs
 
 def delete_logs(limit = 10):
     logger.log_action("Deleting extra logs")

@@ -1,6 +1,6 @@
 from datetime import datetime
 import os, inspect
-#from settings import read_config
+from settings import read_config
 
 class Logger:
     def __init__(self, output_dir=None):
@@ -11,10 +11,11 @@ class Logger:
         if not os.path.exists(output_dir):
             os.mkdir(output_dir)
         self.output_dir = output_dir
+        self.config_data = read_config()
+
+# TODO: Make it possible to disable debug info output into console
 
     def log_action(self, action_text = None):
-        #if self.config_data.get("hide_elements"):
-            #return 0
         if not os.path.exists(self.file_name):
             pass
         log_file_path = os.path.join(self.output_dir, self.file_name)
@@ -23,4 +24,4 @@ class Logger:
         log = open(log_file_path, "a")
         log.write(log_text)
         log.close()
-        print(log_text)
+        if self.config_data.get('hide_elements'): print(log_text)

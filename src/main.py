@@ -42,7 +42,8 @@ def toogle_elemets_visibility():
 root = Tk()  # Creating a root object
 text_field_in = ttk.Label(text="Select input directory")
 text_field_out = ttk.Label(text="Select output directory")
-check_box = ttk.Checkbutton()
+check_box_hide = ttk.Checkbutton()
+check_box_search = ttk.Checkbutton()
 btn_search_dir_in = ttk.Button()
 btn_search_dir_out = ttk.Button()
 dropdown_input_list = ttk.Combobox()
@@ -51,6 +52,7 @@ dropdown_output_list = ttk.Combobox()
 # Variable creation
 
 is_same_directory = BooleanVar(value=True)
+search_sub_dirs = BooleanVar(value=False)
 drop_list = list(read_list_from_file())
 
 # Widgets initialization
@@ -62,12 +64,13 @@ text_field_in.grid(row=0)
 dropdown_input_list.grid(row=1, column=0, padx=5, pady=5, sticky='ew')
 btn_search_dir_in.grid(row=1, column=1, padx=5, pady=5, sticky='w')
 
-check_box.grid(row=2)
+text_field_out.grid(row=2)
 
-text_field_out.grid(row=3)
+dropdown_output_list.grid(row=3, column=0, padx=5, pady=5, sticky='ew')
+btn_search_dir_out.grid(row=3, column=1, padx=5, pady=5, sticky='w')
 
-dropdown_output_list.grid(row=4, column=0, padx=5, pady=5, sticky='ew')
-btn_search_dir_out.grid(row=4, column=1, padx=5, pady=5, sticky='w')
+check_box_hide.grid(row=4)
+
 
 
 root.grid_columnconfigure(0, weight=1)
@@ -89,12 +92,19 @@ dropdown_output_list.config(
     values=drop_list
 )
 
-check_box.config(
+check_box_hide.config(
     text="Put PDF into the same directory?",
     variable=is_same_directory,
     onvalue=True,
     offvalue=False,
     command=toogle_elemets_visibility
+)
+
+check_box_search.config(
+    text="Search sub directories for files?",
+    onvalue=True,
+    offvalue=False,
+    variable=search_sub_dirs
 )
 
 btn_search_dir_in.config(
